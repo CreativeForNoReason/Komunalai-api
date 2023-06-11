@@ -5,8 +5,8 @@ namespace Komunalai_api
 {
     public class Seed
     {
-        private readonly DataContext dataContext;
-        public Seed(DataContext dataContext)
+        private readonly ApplicationDbContext dataContext;
+        public Seed(ApplicationDbContext dataContext)
         {
             this.dataContext = dataContext;
         }

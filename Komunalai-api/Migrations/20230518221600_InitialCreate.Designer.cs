@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Komunalai_api.Migrations
 {
-    [DbContext(typeof(DataContext))]
+    [DbContext(typeof(ApplicationDbContext))]
     [Migration("20230518221600_InitialCreate")]
     partial class InitialCreate
     {

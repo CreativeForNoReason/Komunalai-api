@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Komunalai_api.Data;
 using Komunalai_api.Models;
+using Komunalai_api.Repositories;
 
 namespace Komunalai_api.Controllers
 {
@@ -14,34 +15,30 @@ namespace Komunalai_api.Controllers
     [ApiController]
     public class CommunalsController : ControllerBase
     {
-        private readonly DataContext _context;
+        private readonly ICommunalRepository _repository;
 
-        public CommunalsController(DataContext context)
+        public CommunalsController(ICommunalRepository repository)
         {
-            _context = context;
+            _repository = repository;
         }
 
         // GET: api/Communals
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Communal>>> GetCommunals()
         {
-          if (_context.Communals == null)
-          {
-              return NotFound();
-          }
-            return await _context.Communals.ToListAsync();
+            var communals = await _repository.GetCommunals();
+            if (communals == null)
+            {
+                return NotFound();
+            }
+            return communals;
         }
 
         // GET: api/Communals/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Communal>> GetCommunal(int id)
         {
-          if (_context.Communals == null)
-          {
-              return NotFound();
-          }
-            var communal = await _context.Communals.FindAsync(id);
-
+            var communal = await _repository.GetCommunal(id);
             if (communal == null)
             {
                 return NotFound();
@@ -60,23 +57,7 @@ namespace Komunalai_api.Controllers
                 return BadRequest();
             }
 
-            _context.Entry(communal).State = EntityState.Modified;
-
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!CommunalExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
+            await _repository.UpdateCommunal(id, communal);
 
             return NoContent();
         }
@@ -86,12 +67,7 @@ namespace Komunalai_api.Controllers
         [HttpPost]
         public async Task<ActionResult<Communal>> PostCommunal(Communal communal)
         {
-          if (_context.Communals == null)
-          {
-              return Problem("Entity set 'DataContext.Communals'  is null.");
-          }
-            _context.Communals.Add(communal);
-            await _context.SaveChangesAsync();
+            await _repository.AddCommunal(communal);
 
             return CreatedAtAction("GetCommunal", new { id = communal.Id }, communal);
         }
@@ -100,25 +76,9 @@ namespace Komunalai_api.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteCommunal(int id)
         {
-            if (_context.Communals == null)
-            {
-                return NotFound();
-            }
-            var communal = await _context.Communals.FindAsync(id);
-            if (communal == null)
-            {
-                return NotFound();
-            }
-
-            _context.Communals.Remove(communal);
-            await _context.SaveChangesAsync();
-
+            await _repository.DeleteCommunal(id);
+            
             return NoContent();
-        }
-
-        private bool CommunalExists(int id)
-        {
-            return (_context.Communals?.Any(e => e.Id == id)).GetValueOrDefault();
         }
     }
 }
