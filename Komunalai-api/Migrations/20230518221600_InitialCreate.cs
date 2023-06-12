@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-namespace Komunalai_api.Migrations
+namespace Komunalaiapi.Migrations
 {
     /// <inheritdoc />
     public partial class InitialCreate : Migration

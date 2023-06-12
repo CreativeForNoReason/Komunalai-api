@@ -1,6 +1,6 @@
-﻿using Komunalai_api.Models;
+﻿using Komunalaiapi.Models;
 
-namespace Komunalai_api.Data
+namespace Komunalaiapi.Data
 {
     public interface ILayeredDbContext
     {

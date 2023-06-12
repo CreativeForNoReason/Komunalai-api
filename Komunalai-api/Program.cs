@@ -1,6 +1,8 @@
-using Komunalai_api;
-using Komunalai_api.Data;
+using Komunalaiapi;
+using Komunalaiapi.Data;
+using Komunalaiapi.Repositories;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Net.Http.Headers;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -14,6 +16,21 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
 {
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
+});
+
+// Add services to the container.
+builder.Services.AddScoped<ILayeredDbContext, LayeredDbContext>();
+builder.Services.AddScoped<ICommunalRepository, CommunalRepository>();
+
+builder.Services.AddCors(options =>
+{
+    options.AddDefaultPolicy(
+        policy =>
+        {
+            policy.WithOrigins("https://localhost:7109")
+                .WithHeaders(HeaderNames.ContentType, "application/json")
+                .AllowAnyHeader();
+        });
 });
 
 var app = builder.Build();

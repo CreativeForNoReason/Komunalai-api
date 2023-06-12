@@ -1,7 +1,7 @@
-﻿using Komunalai_api.Data;
-using Komunalai_api.Models;
+﻿using Komunalaiapi.Data;
+using Komunalaiapi.Models;
 
-namespace Komunalai_api
+namespace Komunalaiapi
 {
     public class Seed
     {

@@ -1,8 +1,8 @@
-﻿using Komunalai_api.Data;
-using Komunalai_api.Models;
+﻿using Komunalaiapi.Data;
+using Komunalaiapi.Models;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Komunalai_api.Repositories
+namespace Komunalaiapi.Repositories
 {
     public class CommunalRepository : ICommunalRepository
     {

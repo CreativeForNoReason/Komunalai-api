@@ -1,15 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using Komunalai_api.Data;
-using Komunalai_api.Models;
-using Komunalai_api.Repositories;
+﻿using Microsoft.AspNetCore.Mvc;
+using Komunalaiapi.Models;
+using Komunalaiapi.Repositories;
 
-namespace Komunalai_api.Controllers
+namespace Komunalaiapi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]

@@ -1,4 +1,4 @@
-﻿namespace Komunalai_api.Models
+﻿namespace Komunalaiapi.Models
 {
     public class Communal
     {

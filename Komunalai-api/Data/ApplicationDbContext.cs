@@ -1,7 +1,7 @@
-﻿using Komunalai_api.Models;
+﻿using Komunalaiapi.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace Komunalai_api.Data
+namespace Komunalaiapi.Data
 {
     public class ApplicationDbContext : DbContext
     {
